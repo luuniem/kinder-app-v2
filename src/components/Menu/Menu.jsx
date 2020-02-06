@@ -6,13 +6,17 @@ import { Link } from "react-router-dom";
 import coloring from "../../images/coloring.png";
 import stories from "../../images/stories.png";
 import points from "../../images/points.png";
+import logo from "../../logo.svg";
 
 const Menu = ({ open }) => {
   return (
     <StyledMenu open={open} className="styled__menu">
       <ul className="menu__list">
-        <li>
-          <Link to="/">Home</Link>
+        <li className="list__home__container">
+          <Link to="/">
+            <img src={logo} />
+            <span>Home</span>
+          </Link>
         </li>
         <li>
           <h2>Math</h2>
@@ -26,19 +30,19 @@ const Menu = ({ open }) => {
         <li className="coloring__container">
           <Link to="/coloring-pages">
             <img src={coloring} />
-            Coloring Pages
+            <span>Coloring Pages</span>
           </Link>
         </li>
         <li className="stories__container">
           <Link to="/stories">
             <img src={stories} />
-            Stories
+            <span>Stories</span>
           </Link>
         </li>
         <li className="points__container">
           <Link to="/points-prizes">
             <img src={points} />
-            Points & Prizes
+            <span>Points & Prizes</span>
           </Link>
         </li>
       </ul>
