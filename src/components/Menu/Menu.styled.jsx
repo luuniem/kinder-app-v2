@@ -6,7 +6,7 @@ export const StyledMenu = styled.nav`
   justify-content: center;
   background: #e0efff;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100%)")};
-  width: 30vw;
+  width: 25vw;
   min-height: 100%;
   text-align: left;
   padding: 2rem;
@@ -19,7 +19,6 @@ export const StyledMenu = styled.nav`
   -moz-box-shadow: 3px 0px 9px -1px rgba(148, 148, 148, 1);
   box-shadow: 3px 0px 9px -1px rgba(148, 148, 148, 1);
 
-  font-family: "good-unicorn";
   @media (max-width: 768px) {
     width: 100%;
   }
