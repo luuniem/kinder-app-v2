@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: "Walt Disney Script v4.1";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Walt Disney Script v4.1"),
+    url("/src/Font/Walt_Disney_Script.ttf") format("truetype");
+}
+
+html * {
+  font-family: "Satisfy", cursive;
+}
