@@ -30,7 +30,7 @@ const Menu = ({ open }) => {
         <li className="coloring__container">
           <Link to="/coloring-pages">
             <img src={coloring} />
-            <span>Coloring Pages</span>
+            <span>Coloring</span>
           </Link>
         </li>
         <li className="stories__container">
@@ -42,7 +42,7 @@ const Menu = ({ open }) => {
         <li className="points__container">
           <Link to="/points-prizes">
             <img src={points} />
-            <span>Points & Prizes</span>
+            <span>Prizes</span>
           </Link>
         </li>
       </ul>
