@@ -45,6 +45,15 @@
     url("/src/Font/Walt_Disney_Script.ttf") format("truetype");
 }
 
-html * {
+html *,
+input {
   font-family: "Satisfy", cursive;
+}
+
+h1 {
+  margin-top: 0 !important;
+}
+
+.addition__container {
+  height: 100vh;
 }

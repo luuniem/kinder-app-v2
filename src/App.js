@@ -24,7 +24,7 @@ const App = props => {
   const node = useRef();
   useOnClickOutside(node, () => setOpen(false));
   return (
-    <div className="App container" ref={node}>
+    <div className="App" ref={node}>
       <Burger open={open} setOpen={setOpen} />
 
       <Router>

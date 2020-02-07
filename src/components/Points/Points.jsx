@@ -29,14 +29,14 @@ const Points = props => {
 
   return (
     <div>
-      <h1>
+      <h2>
         Total Points:{" "}
         <ul>
           {totalPoints.map(point => (
             <li key={point.id}>{point.total}</li>
           ))}
         </ul>
-      </h1>
+      </h2>
     </div>
   );
 };
