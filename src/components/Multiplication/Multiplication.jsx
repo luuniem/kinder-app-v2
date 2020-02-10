@@ -9,8 +9,8 @@ import MathForm from "./../MathForm/MathForm";
 const Multiplication = props => {
   //State hooks
   const mathOperator = "x";
-  const [firstNum, setFirstNum] = useState(Number);
-  const [secondNum, setSecondNum] = useState(Number);
+  const [firstNum, setFirstNum] = useState(undefined);
+  const [secondNum, setSecondNum] = useState(undefined);
   const [answerNum, setAnswerNum] = useState("");
   const [correctResult, setCorrectResult] = useState("");
   const [wrongResult, setWrongResult] = useState("");
