@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import AdditionPointsUpdate from "./../Addition/AdditionPointsUpdate";
+
 const Points = props => {
-  const { addPoints } = props;
+  const { additionPoints } = props;
   const [totalPoints, setTotalPoints] = useState([]);
 
   useEffect(() => {
@@ -13,9 +15,7 @@ const Points = props => {
         console.log(error);
       });
   }, []);
-  console.log(totalPoints[0]);
-
-  console.log(addPoints);
+  console.log("firebase : " + totalPoints);
   //   const updatedPoints = totalPoints.points + addPoints;
   //   console.log(updatedPoints);
   //   useEffect(() => {
@@ -27,16 +27,16 @@ const Points = props => {
   //     });
   //   });
 
+  // const updatePoints = () => {
+  //   setTotalPoints(totalPoints + 1);
+  // };
+
   return (
     <div>
-      <h2>
-        Total Points:{" "}
-        <ul>
-          {totalPoints.map(point => (
-            <li key={point.id}>{point.total}</li>
-          ))}
-        </ul>
-      </h2>
+      {/* <AdditionPointsUpdate updatedPoints={updatePoints} /> */}
+      {additionPoints.map(point => (
+        <h3>Addition Points: {point.total}</h3>
+      ))}
     </div>
   );
 };
