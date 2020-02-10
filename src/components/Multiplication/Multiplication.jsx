@@ -55,7 +55,7 @@ const Multiplication = props => {
   return (
     <div className="multiply__container">
       <div className="multiply__frame">
-        <h1>Emily's Multiplication Challenge</h1>
+        <h1>Emily's Times Challenge</h1>
         <button onClick={startAddHandler} className="start__button">
           START
         </button>

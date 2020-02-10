@@ -1,109 +1,95 @@
 .division__container {
   background: linear-gradient(180deg, #edf7ff 30%, #a4d2ff 100%);
   position: relative;
-}
-
-.division__frame {
-  height: 100vh;
-  background: url("../../../src/images/tangled-bg.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  z-index: 2;
-  h1 {
-    margin-top: 30vh !important;
+  .snow {
+    height: 70%;
+    width: 100%;
+    background: url("../../../src/images/frozen-snow.png");
+    opacity: 0.65;
+    position: absolute;
+    right: 10vw;
+    bottom: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    z-index: 1;
   }
-}
 
-.olof {
-  background: url("../../../src/images/olof.png");
-  position: absolute;
-  left: 20vw;
-  bottom: 1vh;
-  height: 31%;
-  width: 20%;
-  z-index: 3;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
+  .division__frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    //   justify-content: space-around;
+  }
+  .input__container {
+    display: flex;
+    justify-content: space-around;
+  }
+  .add__form {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    flex-direction: column;
+  }
+  .boxes {
+    width: 20% !important;
+    height: 14vh !important;
+    background: url("../../../src/images/frozen-math-border.png");
+    background-size: contain;
+    background-repeat: no-repeat;
 
-.snow {
-  height: 70%;
-  width: 100%;
-  background: url("../../../src/images/frozen-snow.png");
-  opacity: 0.65;
-  position: absolute;
-  right: 10vw;
-  bottom: 0;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right;
-  z-index: 1;
-}
+    font-size: 3rem !important;
+    text-align: center;
+  }
 
-.division__frame {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  //   justify-content: space-around;
-}
-.input__container {
-  display: flex;
-  justify-content: space-around;
-}
-.add__form {
-  display: flex;
-  justify-content: space-around;
-  width: 50%;
-  flex-direction: column;
-}
-.boxes {
-  width: 20% !important;
-  height: 14vh !important;
-  background: url("../../../src/images/frozen-math-border.png");
-  background-size: contain;
-  background-repeat: no-repeat;
+  .submit__button,
+  .start__button {
+    width: 100px;
+    height: 50px;
+    margin: 0 auto;
+    border-radius: 10px;
+    color: white;
+    font-family: "Satisfy", cursive;
+    background: linear-gradient(180deg, #838bff 30%, #4b53fe 100%);
+  }
 
-  font-size: 3rem !important;
-  text-align: center;
-}
+  .start__button {
+    margin-bottom: 5vh;
+  }
 
-.submit__button,
-.start__button {
-  width: 100px;
-  height: 50px;
-  margin: 0 auto;
-  border-radius: 10px;
-  color: white;
-  font-family: "Satisfy", cursive;
-  background: linear-gradient(180deg, #838bff 30%, #4b53fe 100%);
-}
+  .submit__button {
+    margin-top: 5vh;
+  }
 
-.start__button {
-  margin-bottom: 5vh;
-}
+  .input__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-.submit__button {
-  margin-top: 5vh;
-}
+  .wrong__result {
+    position: absolute;
+    right: 32vw;
+    bottom: 29vh;
+    color: red;
+  }
 
-.input__container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.wrong__result {
-  position: absolute;
-  right: 32vw;
-  bottom: 29vh;
-  color: red;
-}
-
-.correct__result {
-  position: absolute;
-  left: 30vw;
-  bottom: 28vh;
-  color: green;
+  .correct__result {
+    position: absolute;
+    left: 30vw;
+    bottom: 28vh;
+    color: green;
+  }
+  .division__frame {
+    height: 100vh;
+    background: url("../../../src/images/tangled-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 2;
+    h1 {
+      margin-top: 30vh !important;
+    }
+  }
 }
