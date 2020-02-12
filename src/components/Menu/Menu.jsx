@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { bool } from "prop-types";
 import { StyledMenu } from "./Menu.styled";
 import "./Menu.scss";
@@ -14,7 +14,7 @@ const Menu = ({ open }) => {
       <ul className="menu__list">
         <li className="list__home__container">
           <Link to="/">
-            <img src={logo} />
+            <img alt="placeholder images" src={logo} />
             <span>Home</span>
           </Link>
         </li>
@@ -29,19 +29,19 @@ const Menu = ({ open }) => {
         </li>
         <li className="coloring__container">
           <Link to="/coloring-pages">
-            <img src={coloring} />
+            <img alt="placeholder images" src={coloring} />
             <span>Coloring</span>
           </Link>
         </li>
         <li className="stories__container">
           <Link to="/stories">
-            <img src={stories} />
+            <img alt="placeholder images" src={stories} />
             <span>Stories</span>
           </Link>
         </li>
         <li className="points__container">
           <Link to="/points-prizes">
-            <img src={points} />
+            <img alt="placeholder images" src={points} />
             <span>Prizes</span>
           </Link>
         </li>

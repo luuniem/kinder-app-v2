@@ -9,10 +9,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //local components
 import Home from "./components/Home/Home";
-import Addition from "./components/Addition/Addition";
-import Subtraction from "./components/Subtraction/Subtraction";
-import Multiplication from "./components/Multiplication/Multiplication";
-import Division from "./components/Division/Division";
+import Addition from "./components/Math/Addition/Addition";
+import Subtraction from "./components/Math/Subtraction/Subtraction";
+import Multiplication from "./components/Math/Multiplication/Multiplication";
+import Division from "./components/Math/Division/Division";
 import Coloring from "./components/Coloring/Coloring";
 import Stories from "./components/Stories/Stories";
 import Points from "./components/Points/Points";

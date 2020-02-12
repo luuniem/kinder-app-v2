@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import AdditionPointsUpdate from "./../Addition/AdditionPointsUpdate";
+// import AdditionPointsUpdate from "./../Math/Addition/AdditionPointsUpdate";
 
 const Points = props => {
   const { additionPoints } = props;
