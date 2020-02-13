@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import "./Addition.scss";
-// import Points from "../../Points/Points";
-// import frozenBg from "./../../../images/frozen";
-// import AdditionPointsUpdate from "./AdditionPointsUpdate";
+import Points from "../../Points/Points";
+import AdditionPointsUpdate from "./AdditionPointsUpdate";
 import Axios from "axios";
 import MathForm from "../../MathForm/MathForm";
+import { TapTarget } from "materialize-css";
 
 const Addition = props => {
   //animations
@@ -13,7 +13,7 @@ const Addition = props => {
 
   useEffect(() => {
     gsap.from([trans1], 0.8, {
-      delay: 0.8,
+      delay: 0,
       ease: "power3.out",
       y: 64,
       stagger: {
@@ -69,12 +69,10 @@ const Addition = props => {
     }
     console.log(totalPoints);
 
-    const response = await Axios.put(
+    await Axios.put(
       "https://emily-kinder-app.firebaseio.com/Points.json",
       totalPoints
     );
-    console.log(response);
-    console.log(response.data);
   };
 
   //reset right wrong messages
@@ -103,9 +101,7 @@ const Addition = props => {
           mathOperator={mathOperator}
         />
 
-        {/* <Points additionPoints={additionPoints} /> */}
-        {/* <AdditionPointsUpdate additionPoints={additionPoints} /> */}
-        <h3>{totalPoints.total}</h3>
+        <AdditionPointsUpdate additionPoints={totalPoints.total} />
       </div>
       <h2 className="correct__result">{correctResult}</h2>
 

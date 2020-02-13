@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import coloring from "../../images/coloring.png";
 import stories from "../../images/stories.png";
 import points from "../../images/points.png";
-import logo from "../../logo.svg";
+import tinkerbell from "../../images/tinkerbell-home-icon.png";
 
 const Menu = ({ open }) => {
   return (
@@ -14,7 +14,11 @@ const Menu = ({ open }) => {
       <ul className="menu__list">
         <li className="list__home__container">
           <Link to="/">
-            <img alt="placeholder images" src={logo} />
+            <img
+              alt="placeholder images"
+              className="tinkerbell-home-icon"
+              src={tinkerbell}
+            />
             <span>Home</span>
           </Link>
         </li>

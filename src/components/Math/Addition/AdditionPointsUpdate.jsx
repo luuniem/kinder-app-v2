@@ -7,31 +7,9 @@ const AdditionPointsUpdate = props => {
   //Get Points from Firebase
   const [totalPoints, setTotalPoints] = useState([]);
 
-  useEffect(() => {
-    Axios.get("https://emily-kinder-app.firebaseio.com/Points.json")
-      .then(response => {
-        setTotalPoints(response.data);
-      })
-
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-  console.log(totalPoints);
-
-  // const updatePointsHandler = () => {
-  //   const updatedPoints = [];
-  //   additionPoints.map(point => {
-  //     updatedPoints.push(point);
-  //   });
-
   return (
     <>
-      <h3>Points: {additionPoints}</h3>
-      {/* {totalPoints.map(point => {
-        return <p>{point}</p>;
-      })} */}
-      <h4>{totalPoints.total}</h4>
+      <h3>{additionPoints}</h3>
     </>
   );
 };
