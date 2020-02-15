@@ -1,46 +1,75 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { gsap } from "gsap";
 import "./Multiplication.scss";
-// import Points from "./../Points/Points";
-// import frozenBg from "../../../src/images/frozen-bg.png";
-// import AdditionPointsUpdate from "./AdditionPointsUpdate";
+import AdditionPointsUpdate from "./../Addition/AdditionPointsUpdate";
 import Axios from "axios";
 import MathForm from "../../MathForm/MathForm";
 
-const Multiplication = props => {
+const Addition = props => {
+  //animations
+  let trans1 = useRef(null);
+
+  useEffect(() => {
+    gsap.from([trans1], 0.8, {
+      delay: 0,
+      ease: "power3.out",
+      y: 64,
+      stagger: {
+        amount: 0.2
+      }
+    });
+  }, [trans1]);
   //State hooks
   const mathOperator = "x";
-  const [firstNum, setFirstNum] = useState(undefined);
-  const [secondNum, setSecondNum] = useState(undefined);
+  const [firstNum, setFirstNum] = useState(0);
+  const [secondNum, setSecondNum] = useState(0);
   const [answerNum, setAnswerNum] = useState("");
   const [correctResult, setCorrectResult] = useState("");
   const [wrongResult, setWrongResult] = useState("");
-  const [multiplyPoints, setMultiplyPoints] = useState([]);
+  const [totalPoints, setTotalPoints] = useState([]);
 
-  const startAddHandler = () => {
-    setFirstNum(Math.floor(Math.random() * 2 + 1));
+  //get poitns from firebase
+  useEffect(() => {
+    Axios.get("https://emily-kinder-app.firebaseio.com/Points.json")
+      .then(response => {
+        setTotalPoints(response.data);
+      })
+
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  const startAddHandler = useCallback(() => {
+    setFirstNum(Math.floor(Math.random() * 9 + 1));
     setSecondNum(Math.floor(Math.random() * 9 + 1));
-  };
+  }, []);
 
-  const onSubmitHandler = event => {
+  const onSubmitHandler = async event => {
     event.preventDefault();
     const finalAnswer = firstNum * secondNum;
     const answer = parseInt(answerNum);
 
     if (answer === finalAnswer) {
       setCorrectResult("Correct!");
-      setMultiplyPoints(prevMultiplyPoints => [
-        ...prevMultiplyPoints,
-        { total: 1 }
-      ]);
+      const updatePoints = { total: totalPoints.total + 1 };
+      await Axios.put(
+        "https://emily-kinder-app.firebaseio.com/Points.json",
+        updatePoints
+      );
+      setTotalPoints({ total: totalPoints.total + 1 });
       startAddHandler();
       setAnswerNum("");
     } else {
       setWrongResult("Opps, Try Again!");
+      const updatePoints = { total: totalPoints.total - 1 };
+      await Axios.put(
+        "https://emily-kinder-app.firebaseio.com/Points.json",
+        updatePoints
+      );
       setAnswerNum("");
-      setMultiplyPoints(prevMultiplyPoints => [
-        ...prevMultiplyPoints,
-        { total: -1 }
-      ]);
+
+      setTotalPoints({ total: totalPoints.total - 1 });
     }
   };
 
@@ -55,10 +84,11 @@ const Multiplication = props => {
   return (
     <div className="multiply__container">
       <div className="multiply__frame">
-        <h1>Emily's Times Challenge</h1>
+        <h1 ref={el => (trans1 = el)}>Emily's Multiply Challenge</h1>
         <button onClick={startAddHandler} className="start__button">
           START
         </button>
+
         <MathForm
           onSubmit={onSubmitHandler}
           firstNum={firstNum}
@@ -68,21 +98,14 @@ const Multiplication = props => {
           onChange={event => setAnswerNum(event.target.value)}
           mathOperator={mathOperator}
         />
-        <h3>
-          <ul>
-            Total Points:{" "}
-            {/* <AdditionPointsUpdate additionPoints={additionPoints} /> */}
-            {/* <Points additionPoints = {additionPoints}/> */}
-          </ul>
-        </h3>
+
+        <AdditionPointsUpdate additionPoints={totalPoints.total} />
       </div>
       <h2 className="correct__result">{correctResult}</h2>
 
       <h2 className="wrong__result">{wrongResult}</h2>
-      {/* <div className="olof"></div>
-      <div className="snow"></div> */}
     </div>
   );
 };
 
-export default Multiplication;
+export default Addition;

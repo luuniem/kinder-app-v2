@@ -1,6 +1,18 @@
 .division__container {
   background: linear-gradient(180deg, #edf7ff 30%, #a4d2ff 100%);
   position: relative;
+  h1 {
+    background: white;
+    opacity: 0.85;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  h3 {
+    background: white;
+    opacity: 0.85;
+    padding: 10px;
+    border-radius: 10px;
+  }
   .snow {
     height: 70%;
     width: 100%;
@@ -40,6 +52,8 @@
     background-repeat: no-repeat;
     font-size: 3rem !important;
     text-align: center;
+    background-color: white !important;
+    opacity: 0.9;
   }
 
   .submit__button,
@@ -69,16 +83,18 @@
 
   .wrong__result {
     position: absolute;
-    right: 32vw;
-    bottom: 29vh;
+    right: 30vw;
+    top: 12vh;
     color: red;
+    z-index: 2;
   }
 
   .correct__result {
     position: absolute;
-    left: 30vw;
+    right: 22vw;
     bottom: 28vh;
-    color: green;
+    color: pink;
+    z-index: 2;
   }
   .division__frame {
     height: 100vh;

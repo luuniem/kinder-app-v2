@@ -7,7 +7,7 @@ const AdditionPointsUpdate = props => {
 
   return (
     <>
-      <h3>{additionPoints}</h3>
+      <h3>Points: {additionPoints}</h3>
     </>
   );
 };

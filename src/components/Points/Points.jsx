@@ -110,70 +110,72 @@ const Points = props => {
   };
 
   return (
-    <div className="container">
-      {/* modal error */}
-      <Dialog
-        open={open}
-        onClose={closeHandler}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Sorry Emily!!!"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            You don't have enough points to use on this prize yet. Please try
-            another prize.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeHandler} color="primary" autoFocus>
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-      {/* end modal */}
-      <h2>Your Points: {totalPoints.total}</h2>
-      <div className="points__card__container">
-        {prizes.map(card => {
-          return (
-            <div className="card">
-              <div className="card-image waves-effect waves-block waves-light">
-                <img src={require(`../../images/${card.image}`)} alt="" />
-              </div>
-              <div className="card-content">
-                <span className="card-title activator grey-text text-darken-4">
-                  {card.name}
-                  <i className="material-icons right">
-                    {card.points}
-                    <img
-                      className="activator point_image"
-                      src={require("../../images/points.png")}
-                      alt=""
-                    />
-                  </i>
-                </span>
+    <div className="points__wrap">
+      <div className="container">
+        {/* modal error */}
+        <Dialog
+          open={open}
+          onClose={closeHandler}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Sorry Emily!!!"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              You don't have enough points to use on this prize yet. Please try
+              another prize.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={closeHandler} color="primary" autoFocus>
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
+        {/* end modal */}
+        <h2>Your Points: {totalPoints.total}</h2>
+        <div className="points__card__container">
+          {prizes.map(card => {
+            return (
+              <div className="card">
+                <div className="card-image waves-effect waves-block waves-light">
+                  <img src={require(`../../images/${card.image}`)} alt="" />
+                </div>
+                <div className="card-content">
+                  <span className="card-title activator grey-text text-darken-4">
+                    {card.name}
+                    <i className="material-icons right">
+                      {card.points}
+                      <img
+                        className="activator point_image"
+                        src={require("../../images/points.png")}
+                        alt=""
+                      />
+                    </i>
+                  </span>
 
-                <Modal
-                  totalPoints={totalPoints.total}
-                  points={card.points}
-                  name={card.name}
-                  subtractPoints={() => subtractPointsHandler(card.points)}
-                  // subtractedPoints={totalPoints}
-                />
+                  <Modal
+                    totalPoints={totalPoints.total}
+                    points={card.points}
+                    name={card.name}
+                    subtractPoints={() => subtractPointsHandler(card.points)}
+                    // subtractedPoints={totalPoints}
+                  />
+                </div>
+                <div className="card-reveal">
+                  <span className="card-title grey-text text-darken-4">
+                    {card.name}
+                    <i className="material-icons right">close</i>
+                  </span>
+                  <p>
+                    Here is some more information about this product that is
+                    only revealed once clicked on.
+                  </p>
+                </div>
               </div>
-              <div className="card-reveal">
-                <span className="card-title grey-text text-darken-4">
-                  {card.name}
-                  <i className="material-icons right">close</i>
-                </span>
-                <p>
-                  Here is some more information about this product that is only
-                  revealed once clicked on.
-                </p>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

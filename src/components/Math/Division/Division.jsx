@@ -1,49 +1,78 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { gsap } from "gsap";
 import "./Division.scss";
-// import Points from "./../Points/Points";
-// import frozenBg from "../../../src/images/frozen-bg.png";
-// import AdditionPointsUpdate from "./AdditionPointsUpdate";
+import AdditionPointsUpdate from "./../Addition/AdditionPointsUpdate";
 import Axios from "axios";
 import MathForm from "../../MathForm/MathForm";
 
-const Division = props => {
+const Addition = props => {
+  //animations
+  let trans1 = useRef(null);
+
+  useEffect(() => {
+    gsap.from([trans1], 0.8, {
+      delay: 0,
+      ease: "power3.out",
+      y: 64,
+      stagger: {
+        amount: 0.2
+      }
+    });
+  }, [trans1]);
   //State hooks
   const mathOperator = "÷";
-  const [firstNum, setFirstNum] = useState(undefined);
-  const [secondNum, setSecondNum] = useState(undefined);
+  const [firstNum, setFirstNum] = useState(0);
+  const [secondNum, setSecondNum] = useState(0);
   const [answerNum, setAnswerNum] = useState("");
   const [correctResult, setCorrectResult] = useState("");
   const [wrongResult, setWrongResult] = useState("");
-  const [divisionPoints, setDivisionPoints] = useState([]);
+  const [totalPoints, setTotalPoints] = useState([]);
 
-  const startAddHandler = () => {
+  //get poitns from firebase
+  useEffect(() => {
+    Axios.get("https://emily-kinder-app.firebaseio.com/Points.json")
+      .then(response => {
+        setTotalPoints(response.data);
+      })
+
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  const startAddHandler = useCallback(() => {
     setFirstNum(Math.floor(Math.random() * 9 + 1));
     setSecondNum(Math.floor(Math.random() * 9 + 1));
-  };
-
+  }, []);
   if (firstNum < secondNum) {
     return startAddHandler();
   }
-  const onSubmitHandler = event => {
+
+  const onSubmitHandler = async event => {
     event.preventDefault();
     const finalAnswer = firstNum / secondNum;
     const answer = parseInt(answerNum);
 
     if (answer === finalAnswer) {
       setCorrectResult("Correct!");
-      setDivisionPoints(prevDivisionPoints => [
-        ...prevDivisionPoints,
-        { total: 1 }
-      ]);
+      const updatePoints = { total: totalPoints.total + 1 };
+      await Axios.put(
+        "https://emily-kinder-app.firebaseio.com/Points.json",
+        updatePoints
+      );
+      setTotalPoints({ total: totalPoints.total + 1 });
       startAddHandler();
       setAnswerNum("");
     } else {
       setWrongResult("Opps, Try Again!");
+      const updatePoints = { total: totalPoints.total - 1 };
+      await Axios.put(
+        "https://emily-kinder-app.firebaseio.com/Points.json",
+        updatePoints
+      );
       setAnswerNum("");
-      setDivisionPoints(prevDivisionPoints => [
-        ...prevDivisionPoints,
-        { total: -1 }
-      ]);
+
+      setTotalPoints({ total: totalPoints.total - 1 });
     }
   };
 
@@ -58,10 +87,11 @@ const Division = props => {
   return (
     <div className="division__container">
       <div className="division__frame">
-        <h1>Emily's Division Challenge</h1>
+        <h1 ref={el => (trans1 = el)}>Emily's Divide Challenge</h1>
         <button onClick={startAddHandler} className="start__button">
           START
         </button>
+
         <MathForm
           onSubmit={onSubmitHandler}
           firstNum={firstNum}
@@ -71,21 +101,14 @@ const Division = props => {
           onChange={event => setAnswerNum(event.target.value)}
           mathOperator={mathOperator}
         />
-        <h3>
-          <ul>
-            Total Points:{" "}
-            {/* <AdditionPointsUpdate additionPoints={additionPoints} /> */}
-            {/* <Points additionPoints = {additionPoints}/> */}
-          </ul>
-        </h3>
+
+        <AdditionPointsUpdate additionPoints={totalPoints.total} />
       </div>
       <h2 className="correct__result">{correctResult}</h2>
 
       <h2 className="wrong__result">{wrongResult}</h2>
-      {/* <div className="olof"></div>
-      <div className="snow"></div> */}
     </div>
   );
 };
 
-export default Division;
+export default Addition;

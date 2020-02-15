@@ -85,19 +85,6 @@
     justify-content: space-between;
     align-items: center;
   }
-}
-
-.addition__frame {
-  height: 100vh;
-  background: url("../../../images/frozen-bg.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  position: relative;
-  z-index: 2;
-  h1 {
-    margin-top: 30vh !important;
-  }
   .wrong__result {
     position: absolute;
     right: 32vw;
@@ -110,5 +97,18 @@
     left: 30vw;
     bottom: 28vh;
     color: green;
+  }
+}
+
+.addition__frame {
+  height: 100vh;
+  background: url("../../../images/frozen-bg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  position: relative;
+  z-index: 2;
+  h1 {
+    margin-top: 30vh !important;
   }
 }

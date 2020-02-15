@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 
 import "./Subtraction.scss";
-import SubtractionPointsUpdate from "./SubtractionPointsUpdate";
+import AdditionPointsUpdate from "./../Addition/AdditionPointsUpdate";
 import Axios from "axios";
 import MathForm from "../../MathForm/MathForm";
 
@@ -104,7 +104,7 @@ const Subtraction = props => {
           mathOperator={mathOperator}
         />
 
-        <SubtractionPointsUpdate subtractionPoints={totalPoints.total} />
+        <AdditionPointsUpdate additionPoints={totalPoints.total} />
       </div>
       <h2 className="correct__result">{correctResult}</h2>
 
