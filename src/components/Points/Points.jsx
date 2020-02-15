@@ -9,11 +9,10 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import "../../../node_modules/materialize-css/dist/js/materialize.min.js";
 import "../../../node_modules/materialize-css/dist/css/materialize.min.css";
-// import AdditionPointsUpdate from "./../Math/Addition/AdditionPointsUpdate";
-import AdditionPointsUpdate from "./../Math/Addition/AdditionPointsUpdate";
+
 import Modal from "./../../components/Modal";
+
 const Points = props => {
-  const { updatePoints } = props;
   const [totalPoints, setTotalPoints] = useState([]);
 
   const prizes = [
@@ -21,55 +20,59 @@ const Points = props => {
       name: "1 Sticker",
       image: "mickeySticker.jpg",
       points: 10,
-      description: ""
+      description:
+        "Pick any one stickers you like from a collection of stickers."
     },
     {
       name: "1 Ice-Cream Sandwich",
-      image: "icecream.png",
+      image: "icecream.jpg",
       points: 10,
-      description: ""
+      description:
+        "You get to have a whole icecream sandwich from the big freezer!"
     },
     {
       name: "1 Hour YouTube",
       image: "youtube.png",
       points: 15,
-      description: ""
+      description:
+        "The doctor says you can have 1 hour of time on the iPad. You can earn it here!"
     },
     {
       name: "1 Happy Meal",
-      image: "happyMeal.jpeg",
+      image: "happyMeal.jpg",
       points: 15,
-      description: ""
+      description:
+        "It's more junk food, but if you have enough points, you can claim this reward!"
     },
     {
       name: "Paint model",
       image: "paintModel.jpg",
       points: 20,
-      description: ""
+      description: "You can pick any paint models from the store!"
     },
     {
       name: "Paint canvas",
-      image: "paintCanvas.webp",
+      image: "paintCanvas.jpg",
       points: 20,
-      description: ""
+      description: "You can win one paint canvas to paint on!"
     },
     {
       name: "Extra Paint",
-      image: "extraPaint.jpeg",
+      image: "extraPaint.jpg",
       points: 20,
-      description: ""
+      description: "If you run out of paint, just earn it here."
     },
     {
       name: "Dizzy Castle",
       image: "dizzyCastle.jpg",
       points: 30,
-      description: ""
+      description: "One trip to Dizzy Castle!"
     },
     {
       name: "Disney World",
-      image: "disneyworld.jpeg",
-      points: 2000,
-      description: ""
+      image: "disneyworld.jpg",
+      points: 3000,
+      description: "The ultimate trip"
     }
   ];
   console.log(prizes.name);
@@ -86,17 +89,19 @@ const Points = props => {
   }, []);
   console.log(totalPoints);
 
-  // const [errorMessage, setErrorMessage] = useState(false);
-  const subtractPointsHandler = point => {
+  const subtractPointsHandler = async point => {
     if (totalPoints.total > point) {
+      const updatePoints = { total: totalPoints.total - point };
+      await Axios.put(
+        "https://emily-kinder-app.firebaseio.com/Points.json",
+        updatePoints
+      );
       setTotalPoints({ total: totalPoints.total - point });
-      console.log(totalPoints);
-      setOpen(false);
     } else {
-      // setErrorMessage(true);
       setOpen(true);
     }
   };
+  console.log(totalPoints);
 
   const [open, setOpen] = useState(false);
 
@@ -129,47 +134,46 @@ const Points = props => {
       {/* end modal */}
       <h2>Your Points: {totalPoints.total}</h2>
       <div className="points__card__container">
-        {prizes.map(card => (
-          <div className="card">
-            <div className="card-image waves-effect waves-block waves-light">
-              <img
-                className="activator"
-                src={require("../../images/mickeySticker.jpg")}
-                alt=""
-              />
-            </div>
-            <div className="card-content">
-              <span className="card-title activator grey-text text-darken-4">
-                {card.name}
-                <i className="material-icons right">
-                  {card.points}
-                  <img
-                    className="activator point_image"
-                    src={require("../../images/points.png")}
-                  />
-                </i>
-              </span>
+        {prizes.map(card => {
+          return (
+            <div className="card">
+              <div className="card-image waves-effect waves-block waves-light">
+                <img src={require(`../../images/${card.image}`)} alt="" />
+              </div>
+              <div className="card-content">
+                <span className="card-title activator grey-text text-darken-4">
+                  {card.name}
+                  <i className="material-icons right">
+                    {card.points}
+                    <img
+                      className="activator point_image"
+                      src={require("../../images/points.png")}
+                      alt=""
+                    />
+                  </i>
+                </span>
 
-              <Modal
-                totalPoints={totalPoints.total}
-                points={card.points}
-                name={card.name}
-                subtractPoints={() => subtractPointsHandler(card.points)}
-                subtractedPoints={totalPoints}
-              />
+                <Modal
+                  totalPoints={totalPoints.total}
+                  points={card.points}
+                  name={card.name}
+                  subtractPoints={() => subtractPointsHandler(card.points)}
+                  // subtractedPoints={totalPoints}
+                />
+              </div>
+              <div className="card-reveal">
+                <span className="card-title grey-text text-darken-4">
+                  {card.name}
+                  <i className="material-icons right">close</i>
+                </span>
+                <p>
+                  Here is some more information about this product that is only
+                  revealed once clicked on.
+                </p>
+              </div>
             </div>
-            <div className="card-reveal">
-              <span className="card-title grey-text text-darken-4">
-                {card.name}
-                <i className="material-icons right">close</i>
-              </span>
-              <p>
-                Here is some more information about this product that is only
-                revealed once clicked on.
-              </p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

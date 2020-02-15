@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 import "./Addition.scss";
-import Points from "../../Points/Points";
 import AdditionPointsUpdate from "./AdditionPointsUpdate";
 import Axios from "axios";
 import MathForm from "../../MathForm/MathForm";
-import { TapTarget } from "materialize-css";
 
 const Addition = props => {
   //animations
@@ -23,18 +21,12 @@ const Addition = props => {
   }, [trans1]);
   //State hooks
   const mathOperator = "+";
-  const [firstNum, setFirstNum] = useState(undefined);
-  const [secondNum, setSecondNum] = useState(undefined);
+  const [firstNum, setFirstNum] = useState(0);
+  const [secondNum, setSecondNum] = useState(0);
   const [answerNum, setAnswerNum] = useState("");
   const [correctResult, setCorrectResult] = useState("");
   const [wrongResult, setWrongResult] = useState("");
-  // const [additionPoints, setAdditionPoints] = useState(0);
   const [totalPoints, setTotalPoints] = useState([]);
-
-  const startAddHandler = () => {
-    setFirstNum(Math.floor(Math.random() * 9 + 1));
-    setSecondNum(Math.floor(Math.random() * 9 + 1));
-  };
 
   //get poitns from firebase
   useEffect(() => {
@@ -47,7 +39,11 @@ const Addition = props => {
         console.log(error);
       });
   }, []);
-  console.log(totalPoints);
+
+  const startAddHandler = useCallback(() => {
+    setFirstNum(Math.floor(Math.random() * 9 + 1));
+    setSecondNum(Math.floor(Math.random() * 9 + 1));
+  }, []);
 
   const onSubmitHandler = async event => {
     event.preventDefault();
@@ -56,23 +52,25 @@ const Addition = props => {
 
     if (answer === finalAnswer) {
       setCorrectResult("Correct!");
-      // setAdditionPoints(additionPoints + 1);
+      const updatePoints = { total: totalPoints.total + 1 };
+      await Axios.put(
+        "https://emily-kinder-app.firebaseio.com/Points.json",
+        updatePoints
+      );
       setTotalPoints({ total: totalPoints.total + 1 });
-
       startAddHandler();
       setAnswerNum("");
     } else {
       setWrongResult("Opps, Try Again!");
+      const updatePoints = { total: totalPoints.total - 1 };
+      await Axios.put(
+        "https://emily-kinder-app.firebaseio.com/Points.json",
+        updatePoints
+      );
       setAnswerNum("");
-      // setAdditionPoints(additionPoints - 1);
+
       setTotalPoints({ total: totalPoints.total - 1 });
     }
-    console.log(totalPoints);
-
-    await Axios.put(
-      "https://emily-kinder-app.firebaseio.com/Points.json",
-      totalPoints
-    );
   };
 
   //reset right wrong messages

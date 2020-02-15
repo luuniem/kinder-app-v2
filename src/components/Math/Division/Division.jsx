@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Division.scss";
 // import Points from "./../Points/Points";
 // import frozenBg from "../../../src/images/frozen-bg.png";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -12,9 +12,8 @@ const AlertDialog = props => {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  //   const [subtractedPoints, setSubtractedPoints] = useState([]);
+
   const handleClose = () => {
-    // setSubtractedPoints(subtractPoints);
     setOpen(false);
   };
 
@@ -32,15 +31,22 @@ const AlertDialog = props => {
         <DialogTitle id="alert-dialog-title">{`Hi Emily! You currently have ${totalPoints} points!`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            You're about spend {points} points on {name}.
+            You're about to spend {points} points on {name}. Are you sure?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Disagree
+            No
           </Button>
-          <Button onClick={subtractPoints} color="primary" autoFocus>
-            Agree
+          <Button
+            onClick={() => {
+              handleClose();
+              subtractPoints();
+            }}
+            color="primary"
+            autoFocus
+          >
+            Yes
           </Button>
         </DialogActions>
       </Dialog>
